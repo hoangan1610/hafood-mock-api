@@ -1,7 +1,12 @@
 services:
   - type: web
-    name: hafood-mock
-    env: docker
+    name: has-api
+    env: dotnet
     plan: free
-    region: singapore
-    dockerfilePath: Dockerfile
+    buildCommand: dotnet publish -c Release -o out
+    startCommand: dotnet out/HAShop.Api.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__Default
+        value: "Server=sqlserverhost;Database=HAShop;User Id=xxx;Password=yyy;Encrypt=True;TrustServerCertificate=True"
